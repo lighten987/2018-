@@ -210,3 +210,100 @@ void trace()
 	x[1]=(B[1][c]>0)?1:0;	  
 }   
 
+***戈尼斯堡七桥问题证明***
+>#include<stdio.h>  
+#include<stdlib.h>  
+int main()  
+{  
+	//将四个顶点与七条边构造二维数组  没有通路为0   
+	int way[4][4]={{0,1,1,1},{1,0,2,2},{1,2,0,0},{1,2,0,0}};   
+	int shibai=0;  
+    for(int i=0;i<4;i++)   
+    {  
+    	for(int j=0;j<4;j++)  
+		{  
+    	int hang=i;int lie=j;  
+	loop:if(way[hang][lie]!=0)  
+	{  
+		way[hang][lie]--;  
+		way[lie][hang]--;  
+		if(way[4][4]={0})  
+		printf("遍历完成\n");  
+		else{   
+		hang=lie;  
+		for(int i=0;i<4;i++)  
+		{  
+			if(way[hang][i]!=0)  
+			{  
+			   hang=i;  
+			   goto loop;	  
+			}  
+		}   
+		printf("遍历失败\n");  
+		shibai++;  
+		}  
+		}  
+	else {  
+	printf("遍历失败\n");  
+	shibai++;  
+	}  
+	}   
+	}  
+	printf("%d",shibai);  
+	//失败次数为16次，则无论起点选择哪里都无法走通   
+	return 0;  
+}  
+
+***构造二维数组，用两个循环实现每个点开始出发，遍历所有情况，输出16次失败，证明无通路***
+
+***中兴比较变态的笔试题***
+**钻石存储问题**
+>#include<iostream>  
+using namespace std;  
+int main()  
+{  
+	int cnt=0;  
+	int count;  
+	int cap;//总量  
+	int sum;//总重   
+	int carat[count+1] = {0};  
+	int m[count+1][cap+1]={0};// 0/1背包二维图  
+	cin>> count>>cap;  
+	for(int i=1;i<count+1;i++){  
+		cin>>carat[i];  
+		sum+=carat[i];  //所有钻石的总重量   
+	}  
+    while(sum>0){  
+	int x[count+1] = {1};//记录路径  
+    	for(int i=1;i<=count;i++){  
+    		for(int j=1;j<=cap;j++){  
+    			if(j>=carat[i]){  
+    				if(m[i-1][j]<m[i-1][j-carat[i]]+carat[i]){  
+    					m[i][j] = m[i-1][j-carat[i]]+carat[i];  
+					}  
+					else m[i][j] = m[i-1][j];  
+				}   
+				else m[i][j] = m[i-1][j];  
+			}  
+		}   
+		int c =  cap-1;  
+		for(int i = count; i>1; i--){  
+			if (m[i][c]!= m[i-1][c]){  
+				x[i]=0;  
+				c-=carat[i];  
+			}  
+		}  
+		x[1] = (m[1][c]>0)?0:1;    
+		cnt++;  
+		for(int i=1;i<=count;i++){  
+			carat[i]=carat[i]*x[i];  
+			sum+=carat[i];  
+		}  	
+	}  
+	return 0;  
+}  
+
+***类似0/1背包问题，问需要的容器数，但是钻石只有大小，所以将价值定为大小等价，每次最大收益就是装得最满的情况，所以是不停的循环做0/1背包，做的次数就是容器数，未调试，不知道运行时间是否足够
+ps:有人排序后直接切割，正向排序逆向排序做两次，但是思路太过于投机***
+
+
