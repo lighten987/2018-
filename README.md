@@ -307,3 +307,114 @@ int main()
 ps:有人排序后直接切割，正向排序逆向排序做两次，但是思路太过于投机***
 
 
+***爱奇艺笔试题***
+**幸运ID**
+六位数字，求操作几次能使前三位数字和与后三位数字和相同
+***思路：求出前三位的和，后三位的和，将两个三位与数字9的差值放入数组，并分别排序，判断两个和谁大，对应再去判断差值与几个临界值的关系，输出次数***
+>#include<iostream>  
+#include<algorithm>  
+using namespace std;  
+bool cmp(int a,int b)  
+{  
+    return a>b;  
+}  
+int main()  
+{  
+	char c[6];  
+	int a[6];  
+	int cha1[3];  
+	int cha2[3];  
+	int sum1 = 0,sum2 = 0;  
+	for(int i = 0;i<3;i++){  
+		cin>>c[i];  
+		a[i] = c[i]-'0';  
+		sum1 += a[i];   
+		cha1[i] = 9 -a[i];  
+	}  
+	for(int i = 3;i<6;i++){  
+		cin>>c[i];  
+		a[i] = c[i]-'0';  
+		sum2 += a[i];   
+		cha2[i-3] = 9 -a[i];  
+	}  
+	if(sum1<=sum2){  
+	int chazhi = sum2 - sum1;  
+	sort(cha1,cha1+3,cmp);  //降序  
+	if(chazhi == 0)cout<<"0";  
+	else if(chazhi<=cha1[0]) cout<<"1";  
+	else if(chazhi<=cha1[0]+cha1[1])cout<<"2";  
+	else if(chazhi<=cha1[0]+cha1[1]+cha1[2])cout<<"3";  
+	}  
+	else{  
+	int chazhi = sum1 - sum2;  
+	sort(cha2,cha2+3,cmp);  //降序  
+	if(chazhi == 0)cout<<"0";  
+	else if(chazhi<=cha2[0]) cout<<"1";  
+	else if(chazhi<=cha2[0]+cha2[1])cout<<"2";  
+	else if(chazhi<=cha2[0]+cha2[1]+cha2[2])cout<<"3";	  
+	}  
+	return 0;  
+}
+						       
+						       
+**局长的实物**
+局长有个实物仓储表，每天吃或者买某份食物，求某一天某份实物容量在剩余中排第几
+***思路：将读入时的序号num，读入的容量count,预备成员变量paiming,全定义在food结构体中再放如冰vector，读入字符和数字去找到对应食物对应count进行操作，根据count值排序后更新vector中的paiming成员变量值***
+>#include<iostream>  
+#include<vector>  
+#include<algorithm>  
+using namespace std;  
+//用结构体做  
+struct food  
+{  
+	int num;//序号，最后查找用  
+	int count;//食物数量  
+	int paiming;   
+};   
+bool cmp(food a, food b)  
+{  
+	return a.count>b.count;  
+}  
+vector<food> v(1000);  //预先申请内存！！！   
+int main()  
+{  
+	int n,m,p;  
+	cin>>n>>m>>p;  
+	for(int i = 0; i <n; i++){  
+		cin>>v[i].count;  
+		v[i].num = i+1;  
+	}  
+	for(int j = 0; j<m;j++){  
+		char c;  
+		int temp;  
+		scanf("%c %d\n",&c,&temp);  
+//	    cin>>c>>temp;  
+		if(c == 'A'){//count++  
+		    v[temp-1].count++;  
+		}  
+		else if(c == 'B'){  
+			 v[temp-1].count--;  
+		}  
+	}  
+	sort(v.begin(),v.end(),cmp);  
+	v[0].paiming = 1;  
+	int k =1;  
+	for(int i = 1; i< v.size(); i++){  
+		if(v[i].count != v[i-1].count){  
+			k++;  
+			v[i].paiming = k;  
+		}  
+		else if(v[i].count == v[i-1].count){  
+			v[i].paiming = v[i-1].paiming;  
+			k++;  
+		}  
+	}   
+	for(int i = 0;i<v.size();i++){  
+		if(v[i].num == p){  
+			cout<<v[i].paiming;  
+			break;   
+		}  
+	}  
+	return 0;  
+}   
+***注意：这道题在编写完成后编译没问题，但是读不进去后面增减那些语句，报错的也看不懂，后面将初始化的vector定义了一个大小后，AC，反过头揣测可能是我多次对vector成员不同成员变量操作，需要预先申请内存***
