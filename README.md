@@ -418,3 +418,31 @@ int main()
 	return 0;  
 }   
 ***注意：这道题在编写完成后编译没问题，但是读不进去后面增减那些语句，报错的也看不懂，后面将初始化的vector定义了一个大小后，AC，反过头揣测可能是我多次对vector成员不同成员变量操作，需要预先申请内存***
+	
+	
+/*  
+百词斩笔试题  给定坐标值，求多边形面积  
+
+>#include<iostream>  
+#include<cmath>   
+using namespace std;  
+int main()  
+{  
+	int n;  
+	cin>>n;  
+	double a[n] = {0.0};  
+	double b[n] = {0.0};  
+	for(int i = 0 ; i < n ; i++){  
+		cin>>a[i]>>b[i];  
+	}  
+	double s = 0;  
+	for (int i=0;i<n;i++){  
+		s+=((double)a[i]*b[(i+1)%n]-(double)a[(i+1)%n]*b[i])/2;  
+		s=fabs(s);  
+	}   
+	int ss;  
+	ss = (int)s;  
+	cout<<ss<<endl;   
+	return 0;   
+}  
+*/  
