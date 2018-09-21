@@ -474,3 +474,52 @@ int main()
 		}  
 	return 0;  
 }  
+
+  
+**统计单词输出单词与出现次数，与非法单词个数**  
+***思路：单词分割，不区分是否非法，不去除最后的符号，置个标志位放入合法与非法的两个vector    部分正确***   
+>#include<iostream>  
+#include<vector>  
+#include<map>  
+using namespace std;  
+int main()  
+{     
+vector<string> v1,v2;  
+map<string,int> m;  
+    string s,sout,ssout;  
+    getline(cin,s);  
+    int flag = 0;  
+    int k = 0;  
+    for(int i = 0 ; i< s.size();i++){  
+    	char c;  
+    	c = s[i];  
+    	if(c == ' ' || c == '\n'){  
+				if(flag == 0){  
+					if(sout[sout.size()-1]=='!' || sout[sout.size()-1]==',' ||sout[sout.size()-1]=='.' ){  
+					for(int j = 0 ; j < sout.size()-1; j++){  
+				        ssout[j] = sout[j];  
+					}   
+					v1.push_back(ssout);  
+					m[ssout]++;  
+					sout = "";  
+					}  
+					else {  
+						v1.push_back(sout);  
+					    m[sout]++;  
+					    sout = "";  
+					}  
+				}   
+				else v2.push_back(sout);   
+				sout = "";  
+		}  
+    	else if(c != ' ' || c!= '\n'){  
+    		sout += c;  
+    		if(c>= '0' && c<= '9') flag = 1; //此单词为非法单词   
+			}  
+		}   	
+	for(int i = 0 ;i < v1.size() ; i++){  
+		cout<<v1[i]<<" "<<m[v1[i]]<<endl;  
+	}  
+	cout<<v2.size()<<endl;  
+	return 0;  
+}   
