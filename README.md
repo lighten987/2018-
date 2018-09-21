@@ -446,3 +446,31 @@ int main()
 	return 0;   
 }  
 */  
+
+
+
+**深信服笔试**  
+***二进制数末尾的零，输出零的位数的二进制底的数***  
+>#include<iostream>   
+using namespace std;  
+int main()   
+{   int k = 0;  
+	while(1){  
+		int n;  
+		cin>>n;  
+		if(n == 0)return 0;  
+		else{  
+			while(n%2 == 0){  
+				k++;  
+				n/=2;  
+			}  
+			int sum = 1;  
+				for(int i = 0 ; i < k ; i++){  
+					sum = sum*2;  
+				}  
+				cout<<sum<<endl;  
+				k=0;  
+			}  
+		}  
+	return 0;  
+}  
