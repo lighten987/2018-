@@ -583,4 +583,42 @@ int main()
 	
 	
 	
+***让数组归零的次数，本数将q，其余数降p***  
+>#include<iostream>  
+#include<algorithm>  
+using namespace std;  
+int main()  
+{  
+	int n;  
+	cin>>n;  
+	int count[n] = {0};   
+	int ccount[n] = {0};  
+	int p,q;  
+	cin>>p>>q;  
+	for(int i = 0 ; i < n ; i++){  
+		cin>>count[i];  
+	}  
+	sort(count,count+n);  
+	int kk = 0;  
+	for(int i = n-1 ; i >=0 ;i--){  //ccount降序   
+		ccount[kk] = count[i];  
+		kk++;  
+	}  
+	int k = 0;  
+	int cs = 0;  
+	while(ccount[k]>0){  
+        int cishu = 0;   
+	cishu = (ccount[k]+p-1)/p;   
+	for(int i = k+1 ; i < n; i++){  
+		ccount[i] = ccount[i] - cishu*q;  
+	}  
+	cs += cishu;  
+	k++;  
+    }  
+    cout<<cs;  
+	return 0;  
+}  
+	     
+	     
+	     
 
