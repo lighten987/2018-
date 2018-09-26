@@ -532,3 +532,55 @@ map<string,int> m;
 	cout<<v2.size()<<endl;  
 	return 0;  
 }   
+  
+  
+  
+***1010字符翻转k个0，求1的最长连续***  
+  
+>#include<iostream>  
+using namespace std;  
+int main()  
+{  
+	int n;  
+	cin>>n;  
+	int change;  
+	cin>>change;  
+	int count[n] = {0};  
+	int shu = 0;  
+	string s;    
+	cin>>s;  
+	for(int i = 0 ; i < n ; i++){  
+		if(s[i] == '0'){  
+			count[i]++;  
+			shu++;  
+		}	  
+	}  
+	int max = 0;  
+	for(int qishi = 0 ; qishi < n-shu ; qishi++){  
+		int k = change;  
+		int lianxu = 0;  
+                int i = qishi ;   
+			while(k>0){  
+				if(count[i]==0){  
+					lianxu++;  
+					i++;  
+				}  
+				else if(count[i]!=0){  
+					k--;  
+					lianxu++;  
+					i++;  
+				}  
+				while(count[i]==0){  
+					lianxu++;  
+					i++;  
+				}  
+		}  
+		if(lianxu>max) max = lianxu;  
+	}   
+	cout<<max;  
+	return 0;  
+}  
+	
+	
+	
+
