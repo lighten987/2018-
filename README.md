@@ -630,3 +630,31 @@ int main()
   
 ***爱奇艺笔试***  
   
+**最少的盒子  一系列大小不等的盒子，大的装小的，求最后的可见盒子数量 **  
+**分析： 数重复次数最大的次数**  
+>#include<iostream>  
+#include<vector>  
+#include<map>  
+using namespace std;  
+int main()  
+{  
+	int n;  
+	cin>>n;    
+	vector<int> v(n);  
+	map<int,int>  m;  
+	for(int i = 0 ; i < n ; i++){  
+		int temp;  
+		cin>>temp;  
+		v.push_back(temp);  
+		m[temp]++;  
+	}  
+	int max = 0;  
+	for(int j = 0 ; j < v.size() ; j++){  
+		if(m[v[j]]>max)  
+		max = m[v[j]];  
+	}  
+	cout<<max;  
+	return 0;  
+}   
+	
+	
